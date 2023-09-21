@@ -252,7 +252,9 @@ const generateFieldTypeYupSchema = (
   if (isListType(type)) {
     const gen = generateFieldTypeYupSchema(config, visitor, type.type, type);
     if (!isNonNullType(parentType)) {
-      return `yup.array(${maybeLazy(type.type, gen)}).defined().${config.maybeSchemaValue ? config.maybeSchemaValue : 'nullable'}()`;
+      return `yup.array(${maybeLazy(type.type, gen)}).defined().${
+        config.maybeSchemaValue ? config.maybeSchemaValue : 'nullable'
+      }()`;
     }
     return `yup.array(${maybeLazy(type.type, gen)}).defined()`;
   }

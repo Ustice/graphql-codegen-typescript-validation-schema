@@ -247,32 +247,24 @@ describe('yup', () => {
       input Say {
         phrase: String
       }
-    `)
-    const result = await plugin(
-      schema,
-      [],
-      {
-        schema: 'zod',
-      }
-    )
-    expect(result.content).toContain('phrase: z.string().nullish()')
-  })
+    `);
+    const result = await plugin(schema, [], {
+      schema: 'zod',
+    });
+    expect(result.content).toContain('phrase: z.string().nullish()');
+  });
 
-  it.each(YupNullishSchemaTypes)('with maybeSchemaValue: %s', async (maybeSchemaValue) => {
+  it.each(YupNullishSchemaTypes)('with maybeSchemaValue: %s', async maybeSchemaValue => {
     const schema = buildSchema(/* GraphQL */ `
       input Say {
         phrase: String
       }
-    `)
-    const result = await plugin(
-      schema,
-      [],
-      {
-        schema: 'yup',
-        maybeSchemaValue,
-      }
-    )
-    expect(result.content).toContain(`phrase: z.string().${ maybeSchemaValue }()`)
+    `);
+    const result = await plugin(schema, [], {
+      schema: 'yup',
+      maybeSchemaValue,
+    });
+    expect(result.content).toContain(`phrase: z.string().${maybeSchemaValue}()`);
   });
 
   it('with enumsAsTypes', async () => {

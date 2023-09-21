@@ -251,30 +251,22 @@ describe('zod', () => {
         phrase: String
       }
     `);
-    const result = await plugin(
-      schema,
-      [],
-      {
-        schema: 'zod',
-      }
-    )
+    const result = await plugin(schema, [], {
+      schema: 'zod',
+    });
     expect(result.content).toContain('phrase: z.string().nullish()');
   });
 
-  it.each(ZodNullishSchemaTypes)('with maybeSchemaValue: %s', async (maybeSchemaValue) => {
+  it.each(ZodNullishSchemaTypes)('with maybeSchemaValue: %s', async maybeSchemaValue => {
     const schema = buildSchema(/* GraphQL */ `
       input Say {
         phrase: String
       }
     `);
-    const result = await plugin(
-      schema,
-      [],
-      {
-        schema: 'zod',
-        maybeSchemaValue,
-      }
-    )
+    const result = await plugin(schema, [], {
+      schema: 'zod',
+      maybeSchemaValue,
+    });
     expect(result.content).toContain(`phrase: z.string().${maybeSchemaValue}()`);
   });
 

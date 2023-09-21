@@ -123,6 +123,8 @@ export class ZodSchemaVisitor extends BaseSchemaVisitor {
       leave: (node: EnumTypeDefinitionNode) => {
         const visitor = this.createVisitor('both');
         const enumname = visitor.convertName(node.name.value);
+
+        console.log('~~~', { enumname, node: node.name.value });
         this.importTypes.push(enumname);
 
         // hoist enum declarations
