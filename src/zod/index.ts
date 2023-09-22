@@ -122,7 +122,7 @@ export class ZodSchemaVisitor extends BaseSchemaVisitor {
     return {
       leave: (node: EnumTypeDefinitionNode) => {
         const visitor = this.createVisitor('both');
-        const enumname = visitor.convertName(node.name.value);
+        const enumname = node.name.value;
 
         console.log('~~~ ENUM VALUES', { enumname, node: node.name.value });
         this.importTypes.push(enumname);
@@ -140,7 +140,7 @@ export class ZodSchemaVisitor extends BaseSchemaVisitor {
                 .export()
                 .asKind('const')
                 .withName(`${enumname}Schema`)
-                .withContent(`z.nativeEnum(${node.name.value})`).string
+                .withContent(`z.nativeEnum(${enumname})`).string
         );
       },
     };
