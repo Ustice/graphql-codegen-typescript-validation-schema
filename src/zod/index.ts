@@ -1,4 +1,4 @@
-import { DeclarationBlock, indent } from '@graphql-codegen/visitor-plugin-common';
+import { DeclarationBlock, indent } from '@graphql-codegen/visitor-plugin-common'
 import {
   EnumTypeDefinitionNode,
   FieldDefinitionNode,
@@ -9,13 +9,13 @@ import {
   ObjectTypeDefinitionNode,
   TypeNode,
   UnionTypeDefinitionNode,
-} from 'graphql';
+} from 'graphql'
 
-import { ValidationSchemaPluginConfig } from '../config';
-import { buildApi, formatDirectiveConfig } from '../directive';
-import { BaseSchemaVisitor } from '../schema_visitor';
-import { Visitor } from '../visitor';
-import { isInput, isListType, isNamedType, isNonNullType, ObjectTypeDefinitionBuilder } from './../graphql';
+import { ValidationSchemaPluginConfig } from '../config'
+import { buildApi, formatDirectiveConfig } from '../directive'
+import { BaseSchemaVisitor } from '../schema_visitor'
+import { Visitor } from '../visitor'
+import { ObjectTypeDefinitionBuilder, isInput, isListType, isNamedType, isNonNullType } from './../graphql'
 
 const anySchema = `definedNonNullAnySchema`;
 
@@ -124,7 +124,7 @@ export class ZodSchemaVisitor extends BaseSchemaVisitor {
         const visitor = this.createVisitor('both');
         const enumname = visitor.convertName(node.name.value);
 
-        console.log('~~~', { enumname, node: node.name.value });
+        console.log('~~~ ENUM VALUES', { enumname, node: node.name.value });
         this.importTypes.push(enumname);
 
         // hoist enum declarations
@@ -140,7 +140,7 @@ export class ZodSchemaVisitor extends BaseSchemaVisitor {
                 .export()
                 .asKind('const')
                 .withName(`${enumname}Schema`)
-                .withContent(`z.nativeEnum(${enumname})`).string
+                .withContent(`z.nativeEnum(${node.name.value})`).string
         );
       },
     };
